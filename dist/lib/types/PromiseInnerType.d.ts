@@ -1,0 +1,1 @@
+export declare type PromiseInnerType<T extends Promise<any>> = T extends Promise<infer P> ? P : never;
