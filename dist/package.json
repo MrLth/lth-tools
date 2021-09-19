@@ -1,10 +1,9 @@
 {
   "name": "lth-tools",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "development tools",
   "scripts": {
-    "build": "gulp && webpack-cli",
-    "publish": "npm publish ./dist"
+    "build": "gulp && webpack-cli"
   },
   "keywords": [
     "lth-utils",
@@ -36,14 +35,14 @@
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "babel-loader": "^8.2.2",
+    "core-js": "^3.16.4",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "typescript": "^4.4.2",
     "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "core-js": "^3.16.4"
+    "webpack-cli": "^4.8.0"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
