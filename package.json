@@ -3,8 +3,7 @@
   "version": "1.0.2",
   "description": "development tools",
   "scripts": {
-    "build": "gulp && webpack-cli",
-    "publish": "npm publish ./dist"
+    "build": "gulp && webpack-cli"
   },
   "keywords": [
     "lth-utils",
