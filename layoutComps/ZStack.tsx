@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-08-17 13:56:23
- * @LastEditTime: 2021-09-19 18:06:04
+ * @LastEditTime: 2021-09-19 18:12:42
  * @Description: file content
  */
 
@@ -16,6 +16,8 @@ const componentStyle: React.CSSProperties = {
 }
 const defaultContainerStyle: React.CSSProperties = {
   position: 'absolute',
+  top: 0,
+  left: 0,
   width: '100vw',
   height: '100vh',
   pointerEvents: 'none',
