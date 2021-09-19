@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-08-17 13:56:23
- * @LastEditTime: 2021-09-19 16:51:47
+ * @LastEditTime: 2021-09-19 17:25:07
  * @Description: file content
  */
 
@@ -10,23 +10,8 @@ import React, { useEffect, useLayoutEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import useLayoutStyles, { LayoutComponentProps } from '../hooks/useLayoutStyles'
 
-const componentStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'row',
-}
-const defaultContainerStyle: React.CSSProperties = {
-  position: 'absolute',
-  width: '100vw',
-  height: '100vh',
-  top: 0,
-  left: 0,
-  pointerEvents: 'none',
-}
-const centerStyles: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}
+import c from '../css/ZStack.m.css'
+
 
 export default (props: LayoutComponentProps & {
   center?: boolean
@@ -34,10 +19,11 @@ export default (props: LayoutComponentProps & {
   const {
     children, center = false, className,
   } = props
-  const style = useLayoutStyles(props, componentStyle)
+  const style = useLayoutStyles(props, {})
 
   const dom = useMemo(() => {
     const temp = document.createElement('div')
+    temp.classList.add(c.default)
     document.body.appendChild(temp)
     return temp
   }, [])
@@ -45,15 +31,21 @@ export default (props: LayoutComponentProps & {
   useLayoutEffect(() => {
     Object.assign(
       dom.style,
-      defaultContainerStyle,
-      center ? centerStyles : null,
       style,
     )
-  }, [dom, style, center])
+  }, [dom, style])
+
+  useLayoutEffect(() => {
+    if (center) {
+      dom.classList.add(c.center)
+    } else {
+      dom.classList.remove(c.center)
+    }
+  }, [dom, center])
 
   useLayoutEffect(() => {
     if (className) {
-      dom.className = className
+      dom.classList.add(...className.split(' '))
     }
   }, [dom, className])
 

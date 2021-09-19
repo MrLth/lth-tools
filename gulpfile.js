@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-09-01 07:41:07
- * @LastEditTime: 2021-09-01 08:24:06
+ * @LastEditTime: 2021-09-19 17:27:48
  * @Description: file content
  */
 const gulp = require('gulp');
@@ -52,8 +52,14 @@ gulp.task('declaration', function () {
   return tsProject.src().pipe(tsProject()).pipe(gulp.dest('dist/es/')).pipe(gulp.dest('dist/lib/'));
 });
 
+gulp.task('css', async function () {
+  await gulp.src('./css/*').pipe(gulp.dest('./dist/es/css'));
+});
+
 gulp.task('packageJson', async function () {
   await gulp.src('./package.json').pipe(gulp.dest('./dist'));
 });
 
-exports.default = gulp.series('clean', 'cjs', 'es', 'declaration', 'packageJson');
+
+
+exports.default = gulp.series('clean', 'cjs', 'es', 'declaration', 'css', 'packageJson',);
