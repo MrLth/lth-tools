@@ -3,7 +3,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-08-17 13:56:23
- * @LastEditTime: 2021-08-17 15:09:05
+ * @LastEditTime: 2021-09-19 16:51:47
  * @Description: file content
  */
 
@@ -38,27 +38,27 @@ var centerStyles = {
 
 exports.default = function (props) {
   var children = props.children,
-      containerStyle = props.containerStyle,
       _props$center = props.center,
       center = _props$center === void 0 ? false : _props$center,
       className = props.className;
   var style = (0, useLayoutStyles_1.default)(props, componentStyle);
   var dom = (0, react_1.useMemo)(function () {
     var temp = document.createElement('div');
-    temp.classList.add('popup');
     document.body.appendChild(temp);
     return temp;
   }, []);
   (0, react_1.useLayoutEffect)(function () {
-    Object.assign(dom.style, defaultContainerStyle, center ? centerStyles : null, containerStyle);
-  }, [dom, containerStyle, center]);
+    Object.assign(dom.style, defaultContainerStyle, center ? centerStyles : null, style);
+  }, [dom, style, center]);
+  (0, react_1.useLayoutEffect)(function () {
+    if (className) {
+      dom.className = className;
+    }
+  }, [dom, className]);
   (0, react_1.useEffect)(function () {
     return function () {
       document.body.removeChild(dom);
     };
   }, [dom]);
-  return (0, react_dom_1.createPortal)(react_1.default.createElement("div", {
-    className: className,
-    style: style
-  }, children), dom);
+  return (0, react_dom_1.createPortal)(react_1.default.createElement(react_1.default.Fragment, null, children), dom);
 };

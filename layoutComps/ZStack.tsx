@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-08-17 13:56:23
- * @LastEditTime: 2021-08-17 15:09:05
+ * @LastEditTime: 2021-09-19 16:51:47
  * @Description: file content
  */
 
@@ -29,17 +29,15 @@ const centerStyles: React.CSSProperties = {
 }
 
 export default (props: LayoutComponentProps & {
-  containerStyle?: React.CSSProperties,
   center?: boolean
 }) => {
   const {
-    children, containerStyle, center = false, className,
+    children, center = false, className,
   } = props
   const style = useLayoutStyles(props, componentStyle)
 
   const dom = useMemo(() => {
     const temp = document.createElement('div')
-    temp.classList.add('popup')
     document.body.appendChild(temp)
     return temp
   }, [])
@@ -49,16 +47,23 @@ export default (props: LayoutComponentProps & {
       dom.style,
       defaultContainerStyle,
       center ? centerStyles : null,
-      containerStyle,
+      style,
     )
-  }, [dom, containerStyle, center])
+  }, [dom, style, center])
+
+  useLayoutEffect(() => {
+    if (className) {
+      dom.className = className
+    }
+  }, [dom, className])
+
 
   useEffect(() => () => {
     document.body.removeChild(dom)
   }, [dom])
 
   return createPortal(
-    <div className={className} style={style}>{children}</div>,
+    <>{children}</>,
     dom,
   )
 }
