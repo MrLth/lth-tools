@@ -1,6 +1,6 @@
 {
   "name": "lth-tools",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "development tools",
   "scripts": {
     "build": "gulp && webpack-cli"
