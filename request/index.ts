@@ -2,11 +2,11 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2020-08-11 08:26:43
- * @LastEditTime: 2021-08-31 22:22:46
+ * @LastEditTime: 2021-10-15 11:57:36
  * @Description: file content
  */
 import axios, { AxiosResponse, Canceler } from 'axios';
-import { isFunction, isNumber } from 'lodash-es';
+import { defaultsDeep, isFunction, isNumber } from 'lodash-es';
 import qs from 'qs';
 import { REQ_CFG, REQ_ERR, REQ_RETRY } from './config';
 import RequestCache from './RequestCache';
@@ -22,7 +22,7 @@ const requestingMap = new Map<string, CancelInfo>();
 
 function request<T>(
   url = '',
-  params = { },
+  params = {},
   config: RequestConfig
 ): Promise<T> {
   const {
@@ -31,7 +31,7 @@ function request<T>(
     cache,
     baseUrl = '',
     ...restConfig
-  } = config ?? { }
+  } = config ?? {}
 
   return new Promise((resolve, reject) => {
     const reqUrl = baseUrl + url;
@@ -109,7 +109,7 @@ function request<T>(
               error.response.status,
             )
           ) {
-            return reject(REQ_ERR.NETWORK);
+            return reject(REQ_ERR.NETWORK + error.response.status);
           }
         }
 
@@ -150,13 +150,13 @@ function request<T>(
   });
 }
 
-export function requestCreator({ baseUrl = '', isFormData = false }: RequestCreatorConfig = { }): [Request, Request] {
+export function requestCreator({ baseUrl = '', isFormData = false, ...defaultConfig }: RequestCreatorConfig = {}): [Request, Request] {
   const get: Request = (url, params, config) => request(
     url,
     params,
     {
       cache: true,
-      ...config,
+      ...defaultsDeep(config, defaultsDeep),
       baseUrl,
     },
   );
@@ -165,7 +165,7 @@ export function requestCreator({ baseUrl = '', isFormData = false }: RequestCrea
     ? (url, params, config) => request(url, qs.stringify(params), {
       cache: false,
       baseUrl,
-      ...config,
+      ...defaultsDeep(config, defaultsDeep),
       headers: {
         ...config?.headers,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -175,7 +175,7 @@ export function requestCreator({ baseUrl = '', isFormData = false }: RequestCrea
     : (url, params, config) => request(url, params, {
       cache: false,
       baseUrl,
-      ...config,
+      ...defaultsDeep(config, defaultsDeep),
       method: 'post',
     });
 
