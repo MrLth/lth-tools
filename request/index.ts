@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2020-08-11 08:26:43
- * @LastEditTime: 2021-10-15 11:57:36
+ * @LastEditTime: 2021-10-15 12:08:01
  * @Description: file content
  */
 import axios, { AxiosResponse, Canceler } from 'axios';
@@ -156,7 +156,7 @@ export function requestCreator({ baseUrl = '', isFormData = false, ...defaultCon
     params,
     {
       cache: true,
-      ...defaultsDeep(config, defaultsDeep),
+      ...defaultsDeep(config, defaultConfig),
       baseUrl,
     },
   );
@@ -165,7 +165,7 @@ export function requestCreator({ baseUrl = '', isFormData = false, ...defaultCon
     ? (url, params, config) => request(url, qs.stringify(params), {
       cache: false,
       baseUrl,
-      ...defaultsDeep(config, defaultsDeep),
+      ...defaultsDeep(config, defaultConfig),
       headers: {
         ...config?.headers,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -175,7 +175,7 @@ export function requestCreator({ baseUrl = '', isFormData = false, ...defaultCon
     : (url, params, config) => request(url, params, {
       cache: false,
       baseUrl,
-      ...defaultsDeep(config, defaultsDeep),
+      ...defaultsDeep(config, defaultConfig),
       method: 'post',
     });
 
