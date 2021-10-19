@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2020-08-11 08:26:43
- * @LastEditTime: 2021-10-15 12:08:01
+ * @LastEditTime: 2021-10-15 16:37:38
  * @Description: file content
  */
 import axios, { AxiosResponse, Canceler } from 'axios';
@@ -195,7 +195,7 @@ export const cancelRequest = (cancelKey: Key): void => {
 axios.interceptors.response.use(
   (response) => response,
   (err) => {
-    if (!err.message?.toLowerCase().includes('timeout')) {
+    if (!err.message?.toLowerCase().includes('timeout') || err.config.method !== 'get') {
       return Promise.reject(err);
     }
 
