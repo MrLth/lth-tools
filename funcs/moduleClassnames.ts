@@ -2,7 +2,7 @@
  * @Author: mrlthf11
  * @LastEditors: mrlthf11
  * @Date: 2021-08-31 21:55:58
- * @LastEditTime: 2021-08-31 21:56:03
+ * @LastEditTime: 2021-10-25 16:17:36
  * @Description: file content
  */
 import { isString } from "lodash-es";
@@ -22,5 +22,5 @@ export default <T extends Record<string, string>>(module: T) => (
     }
   }
 
-  return [...classList].join(' ');
+  return Array.from(classList).join(' ');
 }
